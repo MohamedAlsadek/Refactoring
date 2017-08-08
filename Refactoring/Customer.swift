@@ -27,8 +27,6 @@ class Customer: NSObject {
         
         var result = "Rental Recrod for \(name) \n"
         for rental in rentals {
-            let thisAmount = rental.amountFor()
-            
             // add frequent renter points
             frequentRenterPoints += 1
             
@@ -37,9 +35,9 @@ class Customer: NSObject {
                 frequentRenterPoints += 1
                 
                 // show figures for this rental
-                result += "\t \(rental.movie.title) \t \(thisAmount) \n"
+                result += "\t \(rental.movie.title) \t \(rental.getCharge()) \n"
                 
-                totalAmount += thisAmount
+                totalAmount += rental.getCharge()
             }
         }
         

@@ -18,7 +18,7 @@ class Rental: NSObject {
         self.daysRented = daysRented
     }
     
-    func amountFor() -> Double {
+    func getCharge() -> Double {
 
         var thisAmount = 0.0
         
