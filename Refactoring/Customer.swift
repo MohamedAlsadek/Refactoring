@@ -27,26 +27,7 @@ class Customer: NSObject {
         
         var result = "Rental Recrod for \(name) \n"
         for rental in rentals {
-            var thisAmount = 0.0
-            
-            switch rental.movie.priceCode {
-            case Movie.REGULAR:
-                thisAmount += 2
-                if rental.daysRented > 2 {
-                    thisAmount += Double(rental.daysRented - 2) * 1.5
-                }
-                
-            case Movie.NEW_RELEASE:
-                thisAmount += Double(rental.daysRented) * 3.0
-                
-            case Movie.CHILDRENS:
-                thisAmount += 1.5
-                if rental.daysRented > 3 {
-                    thisAmount += Double(rental.daysRented - 3) * 1.5
-                }
-            default:
-                break
-            }
+            let thisAmount = amountFor(rental: rental)
             
             // add frequent renter points
             frequentRenterPoints += 1
@@ -68,4 +49,31 @@ class Customer: NSObject {
         
         return result
     }
+    
+    private func amountFor(rental: Rental) -> Double {
+        
+        var thisAmount = 0.0
+        
+        switch rental.movie.priceCode {
+        case Movie.REGULAR:
+            thisAmount += 2
+            if rental.daysRented > 2 {
+                thisAmount += Double(rental.daysRented - 2) * 1.5
+            }
+            
+        case Movie.NEW_RELEASE:
+            thisAmount += Double(rental.daysRented) * 3.0
+            
+        case Movie.CHILDRENS:
+            thisAmount += 1.5
+            if rental.daysRented > 3 {
+                thisAmount += Double(rental.daysRented - 3) * 1.5
+            }
+        default:
+            break
+        }
+        
+        return thisAmount
+    }
+    
 }
