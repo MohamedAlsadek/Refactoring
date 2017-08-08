@@ -27,7 +27,7 @@ class Customer: NSObject {
         
         var result = "Rental Recrod for \(name) \n"
         for rental in rentals {
-            let thisAmount = amountFor(rental: rental)
+            let thisAmount = rental.amountFor()
             
             // add frequent renter points
             frequentRenterPoints += 1
@@ -48,32 +48,6 @@ class Customer: NSObject {
         result += "You earned \(frequentRenterPoints) frequent renter points"
         
         return result
-    }
-    
-    private func amountFor(rental: Rental) -> Double {
-        
-        var thisAmount = 0.0
-        
-        switch rental.movie.priceCode {
-        case Movie.REGULAR:
-            thisAmount += 2
-            if rental.daysRented > 2 {
-                thisAmount += Double(rental.daysRented - 2) * 1.5
-            }
-            
-        case Movie.NEW_RELEASE:
-            thisAmount += Double(rental.daysRented) * 3.0
-            
-        case Movie.CHILDRENS:
-            thisAmount += 1.5
-            if rental.daysRented > 3 {
-                thisAmount += Double(rental.daysRented - 3) * 1.5
-            }
-        default:
-            break
-        }
-        
-        return thisAmount
     }
     
 }

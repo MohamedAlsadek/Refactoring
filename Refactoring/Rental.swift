@@ -18,4 +18,29 @@ class Rental: NSObject {
         self.daysRented = daysRented
     }
     
+    func amountFor() -> Double {
+
+        var thisAmount = 0.0
+        
+        switch movie.priceCode {
+        case Movie.REGULAR:
+            thisAmount += 2
+            if daysRented > 2 {
+                thisAmount += Double(daysRented - 2) * 1.5
+            }
+            
+        case Movie.NEW_RELEASE:
+            thisAmount += Double(daysRented) * 3.0
+            
+        case Movie.CHILDRENS:
+            thisAmount += 1.5
+            if daysRented > 3 {
+                thisAmount += Double(daysRented - 3) * 1.5
+            }
+        default:
+            break
+        }
+        
+        return thisAmount
+    }
 }
