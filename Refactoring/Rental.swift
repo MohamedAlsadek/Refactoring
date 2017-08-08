@@ -43,4 +43,17 @@ class Rental: NSObject {
         
         return thisAmount
     }
+    
+    func getFrequentRenterPoints() -> Int {
+        // add frequent renter points
+        var frequentRenterPoints = 1
+        
+        // add bonus for a two day new release rental
+        if movie.priceCode == Movie.NEW_RELEASE && daysRented > 1 {
+            frequentRenterPoints += 1
+        }
+        
+        return frequentRenterPoints
+    }
+    
 }
