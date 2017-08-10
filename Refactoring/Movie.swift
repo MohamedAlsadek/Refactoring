@@ -14,11 +14,46 @@ class Movie: NSObject {
     static let REGULAR = 0
     static let NEW_RELEASE = 1
     
+    private var price: Price?
+    
     var title: String
-    var priceCode: Int
     
     init(title: String, priceCode: Int) {
         self.title = title
-        self.priceCode = priceCode
+        super.init()
+        
+        setPriceCode(priceCode: priceCode)
+    }
+    
+    func setPriceCode(priceCode: Int) {
+        switch priceCode {
+        case Movie.REGULAR:
+           price = RegularPrice()
+            
+        case Movie.NEW_RELEASE:
+            price = NewReleasePrice()
+            
+        case Movie.CHILDRENS:
+            price = ChildrensPrice()
+            
+        default:
+            assertionFailure("Invalid price code")
+            break
+        }
+    }
+    
+    func getCharge(daysRented: Int) -> Double {
+        guard let price = price else {
+            return 0.0
+        }
+        return price.getCharge(daysRented: daysRented)
+    }
+    
+    func getFrequentRenterPoints(daysRented: Int) -> Int {
+        if (price?.getPriceCode() == Movie.NEW_RELEASE && daysRented > 1) {
+            return 2
+        } else {
+            return 1
+        }
     }
 }

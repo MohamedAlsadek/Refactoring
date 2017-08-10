@@ -19,41 +19,11 @@ class Rental: NSObject {
     }
     
     func getCharge() -> Double {
-
-        var thisAmount = 0.0
-        
-        switch movie.priceCode {
-        case Movie.REGULAR:
-            thisAmount += 2
-            if daysRented > 2 {
-                thisAmount += Double(daysRented - 2) * 1.5
-            }
-            
-        case Movie.NEW_RELEASE:
-            thisAmount += Double(daysRented) * 3.0
-            
-        case Movie.CHILDRENS:
-            thisAmount += 1.5
-            if daysRented > 3 {
-                thisAmount += Double(daysRented - 3) * 1.5
-            }
-        default:
-            break
-        }
-        
-        return thisAmount
+        return movie.getCharge(daysRented: daysRented)
     }
     
     func getFrequentRenterPoints() -> Int {
-        // add frequent renter points
-        var frequentRenterPoints = 1
-        
-        // add bonus for a two day new release rental
-        if movie.priceCode == Movie.NEW_RELEASE && daysRented > 1 {
-            frequentRenterPoints += 1
-        }
-        
-        return frequentRenterPoints
+        return movie.getFrequentRenterPoints(daysRented: daysRented)
     }
     
 }
